@@ -183,22 +183,21 @@ function responder(opcao) {
   mostrarPergunta();
 }
 
+// Envia todas as respostas ao final (em um único documento)
 function enviarParaFirebase() {
-  respostas.forEach(resposta => {
-    db.collection("respostasQuiz")
-      .add({
-        nome: nome,
-        idade: idade,
-        pergunta: resposta.pergunta,
-        resposta: resposta.respostaDada,
-        correta: resposta.respostaCorreta,
-        timestamp: new Date()
-      })
-      .then(() => {
-        console.log("Resposta enviada com sucesso!");
-      })
-      .catch((error) => {
-        console.error("Erro ao enviar resposta:", error);
-      });
-  });
+  const dados = {
+    nome: nome,
+    idade: idade,
+    respostas: respostas, // array completo com todas as respostas
+    timestamp: new Date()
+  };
+
+  db.collection("respostasQuiz")
+    .add(dados)
+    .then(() => {
+      console.log("Todas as respostas foram enviadas com sucesso!");
+    })
+    .catch((error) => {
+      console.error("Erro ao enviar as respostas:", error);
+    });
 }
