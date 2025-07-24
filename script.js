@@ -2,7 +2,12 @@ const perguntas = [
   {
     imagem: "images/astronauta.png",
     pergunta: "Quem eram os Guarus e como eles viviam?",
-    opcoes: ["Eram pessoas que cortavam as árvores", "Eram indígenas espertos e gentis, e viviam com a natureza", "Eram pessoas que jogavam lixo nas ruas", "Eram pessoas comuns só que com capa"],
+    opcoes: [
+      "Eram pessoas que cortavam as árvores",
+      "Eram indígenas espertos e gentis, e viviam com a natureza",
+      "Eram pessoas que jogavam lixo nas ruas",
+      "Eram pessoas comuns só que com capa"
+    ],
     correta: "Eram indígenas espertos e gentis, e viviam com a natureza"
   },
   {
@@ -14,13 +19,23 @@ const perguntas = [
   {
     imagem: "images/astronauta.png",
     pergunta: "Como era a Terra dos Guarus há muito tempo, antes de se tornar Guarulhos?",
-    opcoes: ["A noisy city with cars", "A dry and empty place", "Full of big buildings and cars", "Full of nature and magic"],
+    opcoes: [
+      "A noisy city with cars",
+      "A dry and empty place",
+      "Full of big buildings and cars",
+      "Full of nature and magic"
+    ],
     correta: "Full of nature and magic"
   },
   {
     imagem: "images/astronauta.png",
     pergunta: "Por que Guarulhos está pedindo ajuda?",
-    opcoes: ["Because it rains", "Because it is sad", "Because of pollution", "Because t-rex"],
+    opcoes: [
+      "Because it rains",
+      "Because it is sad",
+      "Because of pollution",
+      "Because t-rex"
+    ],
     correta: "Because of pollution"
   },
   {
@@ -37,25 +52,45 @@ const perguntas = [
   {
     imagem: "images/astronauta.png",
     pergunta: "Globla warming is...",
-    opcoes: ["Quando cuidamos bem da natureza e dos animais", "Quando os rios estão limpos e as florestas felizes", "Quando a Terra fica mais quente e o clima muda porque as pessoas esqueceram de cuidar da natureza", "Quando erram a temperatura local"],
+    opcoes: [
+      "Quando cuidamos bem da natureza e dos animais",
+      "Quando os rios estão limpos e as florestas felizes",
+      "Quando a Terra fica mais quente e o clima muda porque as pessoas esqueceram de cuidar da natureza",
+      "Quando erram a temperatura local"
+    ],
     correta: "Quando a Terra fica mais quente e o clima muda porque as pessoas esqueceram de cuidar da natureza"
   },
   {
     imagem: "images/astronauta.png",
     pergunta: "What does “nature” give us?",
-    opcoes: ["Noise and smoke", "Robots and buildings", "Cake and soda", "Clean air and water"],
+    opcoes: [
+      "Noise and smoke",
+      "Robots and buildings",
+      "Cake and soda",
+      "Clean air and water"
+    ],
     correta: "Clean air and water"
   },
   {
     imagem: "images/astronauta.png",
     pergunta: "Who are the new heroes?",
-    opcoes: ["Adults from space", "Children like me", "Animals of the forest", "Guitar Players"],
+    opcoes: [
+      "Adults from space",
+      "Children like me",
+      "Animals of the forest",
+      "Guitar Players"
+    ],
     correta: "Children like me"
   },
   {
     imagem: "images/astronauta.png",
     pergunta: "How can you help Guarulhos?",
-    opcoes: ["Becoming an Environmental Agent and taking care of the Earth", "Throwing garbage on the floor", "Cutting trees", "Playing guitar"],
+    opcoes: [
+      "Becoming an Environmental Agent and taking care of the Earth",
+      "Throwing garbage on the floor",
+      "Cutting trees",
+      "Playing guitar"
+    ],
     correta: "Becoming an Environmental Agent and taking care of the Earth"
   },
 ];
@@ -82,7 +117,7 @@ function mostrarPergunta() {
 
   if (perguntaAtual >= perguntas.length) {
     container.innerHTML = "<h2>Obrigado por participar!</h2><p>Suas respostas foram enviadas com sucesso.</p>";
-    enviarParaGoogleSheets(); // envia tudo junto ao final
+    enviarParaFirebase(); // salva todas ao final
     return;
   }
 
@@ -127,19 +162,23 @@ function responder(opcao) {
   mostrarPergunta();
 }
 
-function enviarParaGoogleSheets(nome, idade, respostas) {
-  fetch("https://script.google.com/macros/s/AKfycbyGZyY4Xyz3JdT9p5YD8RuScGbgslqJECF8gIv9A0dR_6EUlJKBtGkx13GQ9w0iT1gBpQ/exec", {
-    method: "POST",
-    body: JSON.stringify({ nome, idade, respostas }),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log("Enviado com sucesso:", data);
-  })
-  .catch(err => {
-    console.error("Erro ao enviar resposta:", err);
+// FIREBASE - Envia todas as respostas ao final
+
+function enviarParaFirebase() {
+  respostas.forEach(resposta => {
+    db.collection("respostasQuiz").add({
+      nome: nome,
+      idade: idade,
+      pergunta: resposta.pergunta,
+      resposta: resposta.respostaDada,
+      correta: resposta.respostaDada === resposta.respostaCorreta,
+      timestamp: new Date()
+    })
+    .then(() => {
+      console.log("Resposta enviada com sucesso");
+    })
+    .catch(error => {
+      console.error("Erro ao enviar resposta:", error);
+    });
   });
 }
