@@ -128,7 +128,7 @@ function responder(opcao) {
 }
 
 function enviarResposta(nome, idade, pergunta, resposta, correta) {
-  const urlWebApp = "SUA_URL_DO_WEB_APP";
+  const urlWebApp = "https://script.google.com/macros/s/AKfycbycHDdMNfxLhmYIQvlK0C8XPYT6IjDJmgWjdoziITVl_SXCteTWqn3rP22PUhRxTSRc/exec";
 
   fetch(urlWebApp, {
     method: "POST",
