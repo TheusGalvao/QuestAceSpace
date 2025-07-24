@@ -51,7 +51,7 @@ const perguntas = [
   },
   {
     imagem: "images/astronauta.png",
-    pergunta: "Globla warming is...",
+    pergunta: "Global warming is...",
     opcoes: [
       "Quando cuidamos bem da natureza e dos animais",
       "Quando os rios estão limpos e as florestas felizes",
@@ -92,7 +92,7 @@ const perguntas = [
       "Playing guitar"
     ],
     correta: "Becoming an Environmental Agent and taking care of the Earth"
-  },
+  }
 ];
 
 let respostas = [];
@@ -117,7 +117,7 @@ function mostrarPergunta() {
 
   if (perguntaAtual >= perguntas.length) {
     container.innerHTML = "<h2>Obrigado por participar!</h2><p>Suas respostas foram enviadas com sucesso.</p>";
-    enviarParaFirebase(); // salva todas ao final
+    enviarParaFirebase();
     return;
   }
 
@@ -162,8 +162,20 @@ function responder(opcao) {
   mostrarPergunta();
 }
 
-// FIREBASE - Envia todas as respostas ao final
+// Envia todas as respostas ao final
+function enviarParaFirebase() {
+  respostas.forEach(resposta => {
+    enviarResposta({
+      nome: nome,
+      idade: idade,
+      pergunta: resposta.pergunta,
+      resposta: resposta.respostaDada,
+      correta: resposta.respostaCorreta
+    });
+  });
+}
 
+// Função que envia individualmente ao Firestore
 function enviarResposta(dados) {
   db.collection("respostasQuiz")
     .add({
