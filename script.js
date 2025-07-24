@@ -127,25 +127,19 @@ function responder(opcao) {
   mostrarPergunta();
 }
 
-function enviarParaGoogleSheets() {
-  const urlWebApp = "https://script.google.com/macros/s/AKfycbyjkT8WxXojwuK9eCpmaIJbxtm3gApyyP_Zyrj8o3ouo_hgvn2fWJvEFStxvA_jX8u8/exec";
-
-  respostas.forEach(r => {
-    fetch(urlWebApp, {
-      method: "POST",
-      body: JSON.stringify({
-        nome: nome,
-        idade: idade,
-        pergunta: r.pergunta,
-        resposta: r.respostaDada,
-        correta: r.respostaCorreta
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(res => res.text())
-    .then(data => console.log("Resposta enviada:", data))
-    .catch(err => console.error("Erro ao enviar resposta:", err));
+function enviarParaGoogleSheets(nome, idade, respostas) {
+  fetch("https://script.google.com/macros/s/SEU_ID/exec", {
+    method: "POST",
+    body: JSON.stringify({ nome, idade, respostas }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log("Enviado com sucesso:", data);
+  })
+  .catch(err => {
+    console.error("Erro ao enviar resposta:", err);
   });
 }
