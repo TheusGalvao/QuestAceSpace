@@ -128,7 +128,7 @@ function responder(opcao) {
 }
 
 function enviarParaGoogleSheets(nome, idade, respostas) {
-  fetch("https://script.google.com/macros/s/SEU_ID/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbyGZyY4Xyz3JdT9p5YD8RuScGbgslqJECF8gIv9A0dR_6EUlJKBtGkx13GQ9w0iT1gBpQ/exec", {
     method: "POST",
     body: JSON.stringify({ nome, idade, respostas }),
     headers: {
