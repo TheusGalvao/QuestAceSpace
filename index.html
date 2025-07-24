@@ -12,28 +12,6 @@
     <input type="number" id="idade" placeholder="Idade"><br>
     <button class="enviar" onclick="iniciarQuiz()">Iniciar</button>
   </div>
-
-  <!-- Firebase SDKs (usar sempre ANTES do script principal) -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
-  <!-- Inicialização do Firebase -->
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyA4rFposZJqX_wYWgOysqzA7d2pOocx6s0",
-      authDomain: "respostas-quest-acespace.firebaseapp.com",
-      projectId: "respostas-quest-acespace",
-      storageBucket: "respostas-quest-acespace.appspot.com",
-      messagingSenderId: "274617764889",
-      appId: "1:274617764889:web:52f80ad4caac5fa05c6e88",
-      measurementId: "G-CCV98BK0RF"
-    };
-
-    // Inicializa Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-  </script>
-
   <!-- Seu script -->
   <script src="script.js"></script>
 </body>
