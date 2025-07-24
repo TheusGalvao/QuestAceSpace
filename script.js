@@ -1,104 +1,25 @@
 const perguntas = [
-  {
-    imagem: "images/astronauta.png",
-    pergunta: "Quem eram os Guarus e como eles viviam?",
-    opcoes: [
-      "Eram pessoas que cortavam as árvores",
-      "Eram indígenas espertos e gentis, e viviam com a natureza",
-      "Eram pessoas que jogavam lixo nas ruas",
-      "Eram pessoas comuns só que com capa"
-    ],
-    correta: "Eram indígenas espertos e gentis, e viviam com a natureza"
-  },
-  {
-    imagem: "images/astronauta.png",
-    pergunta: "O ar costumava ser...",
-    opcoes: ["Limpo e fresco", "Cheio de poluição", "Muito abafado", "Cheiroso"],
-    correta: "Limpo e fresco"
-  },
-  {
-    imagem: "images/astronauta.png",
-    pergunta: "Como era a Terra dos Guarus há muito tempo, antes de se tornar Guarulhos?",
-    opcoes: [
-      "A noisy city with cars",
-      "A dry and empty place",
-      "Full of big buildings and cars",
-      "Full of nature and magic"
-    ],
-    correta: "Full of nature and magic"
-  },
-  {
-    imagem: "images/astronauta.png",
-    pergunta: "Por que Guarulhos está pedindo ajuda?",
-    opcoes: [
-      "Because it rains",
-      "Because it is sad",
-      "Because of pollution",
-      "Because t-rex"
-    ],
-    correta: "Because of pollution"
-  },
-  {
-    imagem: "images/astronauta.png",
-    pergunta: "O que é um “dirty river”?",
-    opcoes: [
-      { texto: "img1", imagem: "images/dirty.jpg" },
-      { texto: "img2", imagem: "images/river.jpg" },
-      { texto: "img3", imagem: "images/tree.jpeg" },
-      { texto: "img4", imagem: "images/background.png" }
-    ],
-    correta: "img1"
-  },
-  {
-    imagem: "images/astronauta.png",
-    pergunta: "Global warming is...",
-    opcoes: [
-      "Quando cuidamos bem da natureza e dos animais",
-      "Quando os rios estão limpos e as florestas felizes",
-      "Quando a Terra fica mais quente e o clima muda porque as pessoas esqueceram de cuidar da natureza",
-      "Quando erram a temperatura local"
-    ],
-    correta: "Quando a Terra fica mais quente e o clima muda porque as pessoas esqueceram de cuidar da natureza"
-  },
-  {
-    imagem: "images/astronauta.png",
-    pergunta: "What does “nature” give us?",
-    opcoes: [
-      "Noise and smoke",
-      "Robots and buildings",
-      "Cake and soda",
-      "Clean air and water"
-    ],
-    correta: "Clean air and water"
-  },
-  {
-    imagem: "images/astronauta.png",
-    pergunta: "Who are the new heroes?",
-    opcoes: [
-      "Adults from space",
-      "Children like me",
-      "Animals of the forest",
-      "Guitar Players"
-    ],
-    correta: "Children like me"
-  },
-  {
-    imagem: "images/astronauta.png",
-    pergunta: "How can you help Guarulhos?",
-    opcoes: [
-      "Becoming an Environmental Agent and taking care of the Earth",
-      "Throwing garbage on the floor",
-      "Cutting trees",
-      "Playing guitar"
-    ],
-    correta: "Becoming an Environmental Agent and taking care of the Earth"
-  }
+  // ... (suas perguntas, sem mudanças)
 ];
 
 let respostas = [];
 let perguntaAtual = 0;
 let nome = "";
 let idade = "";
+
+// INICIALIZAÇÃO DO FIREBASE (adicione isso no topo ou antes de usar o db)
+const firebaseConfig = {
+  apiKey: "AIzaSyA4rFposZJqX_wYWgOysqzA7d2pOocx6s0",
+  authDomain: "respostas-quest-acespace.firebaseapp.com",
+  projectId: "respostas-quest-acespace",
+  storageBucket: "respostas-quest-acespace.appspot.com",
+  messagingSenderId: "274617764889",
+  appId: "1:274617764889:web:52f80ad4caac5fa05c6e88",
+  measurementId: "G-CCV98BK0RF"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 function iniciarQuiz() {
   nome = document.getElementById("nome").value.trim();
