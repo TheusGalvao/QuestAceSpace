@@ -164,21 +164,20 @@ function responder(opcao) {
 
 // FIREBASE - Envia todas as respostas ao final
 
-function enviarParaFirebase() {
-  respostas.forEach(resposta => {
-    db.collection("respostasQuiz").add({
-      nome: nome,
-      idade: idade,
-      pergunta: resposta.pergunta,
-      resposta: resposta.respostaDada,
-      correta: resposta.respostaDada === resposta.respostaCorreta,
+function enviarResposta(dados) {
+  db.collection("respostasQuiz")
+    .add({
+      nome: dados.nome,
+      idade: dados.idade,
+      pergunta: dados.pergunta,
+      resposta: dados.resposta,
+      correta: dados.correta,
       timestamp: new Date()
     })
     .then(() => {
-      console.log("Resposta enviada com sucesso");
+      console.log("Resposta enviada com sucesso!");
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("Erro ao enviar resposta:", error);
     });
-  });
 }

@@ -13,35 +13,28 @@
     <button class="enviar" onclick="iniciarQuiz()">Iniciar</button>
   </div>
 
+  <!-- Firebase SDKs (usar sempre ANTES do script principal) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <!-- Inicialização do Firebase -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA4rFposZJqX_wYWgOysqzA7d2pOocx6s0",
+      authDomain: "respostas-quest-acespace.firebaseapp.com",
+      projectId: "respostas-quest-acespace",
+      storageBucket: "respostas-quest-acespace.appspot.com",
+      messagingSenderId: "274617764889",
+      appId: "1:274617764889:web:52f80ad4caac5fa05c6e88",
+      measurementId: "G-CCV98BK0RF"
+    };
+
+    // Inicializa Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+
+  <!-- Seu script -->
   <script src="script.js"></script>
-
-  
-<!-- Firebase App (obrigatório) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
-<script>
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA4rFposZJqX_wYWgOysqzA7d2pOocx6s0",
-  authDomain: "respostas-quest-acespace.firebaseapp.com",
-  projectId: "respostas-quest-acespace",
-  storageBucket: "respostas-quest-acespace.firebasestorage.app",
-  messagingSenderId: "274617764889",
-  appId: "1:274617764889:web:52f80ad4caac5fa05c6e88",
-  measurementId: "G-CCV98BK0RF"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);  
-</script>
-
 </body>
 </html>
