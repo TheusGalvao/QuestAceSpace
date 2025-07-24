@@ -1,5 +1,15 @@
+// script.js
+
+// Suas perguntas aqui
 const perguntas = [
-  // ... (suas perguntas, sem mudanças)
+  // Exemplo
+  {
+    pergunta: "Qual é a capital do Brasil?",
+    correta: "Brasília",
+    opcoes: ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador"],
+    imagem: "https://exemplo.com/imagem1.jpg"
+  },
+  // Adicione mais perguntas
 ];
 
 let respostas = [];
@@ -7,7 +17,7 @@ let perguntaAtual = 0;
 let nome = "";
 let idade = "";
 
-// INICIALIZAÇÃO DO FIREBASE (adicione isso no topo ou antes de usar o db)
+// Firebase config - certifique-se de NÃO repetir isso
 const firebaseConfig = {
   apiKey: "AIzaSyA4rFposZJqX_wYWgOysqzA7d2pOocx6s0",
   authDomain: "respostas-quest-acespace.firebaseapp.com",
@@ -18,7 +28,11 @@ const firebaseConfig = {
   measurementId: "G-CCV98BK0RF"
 };
 
-firebase.initializeApp(firebaseConfig);
+// Inicializar Firebase apenas uma vez
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 const db = firebase.firestore();
 
 function iniciarQuiz() {
@@ -83,34 +97,22 @@ function responder(opcao) {
   mostrarPergunta();
 }
 
-// Envia todas as respostas ao final
 function enviarParaFirebase() {
   respostas.forEach(resposta => {
-    enviarResposta({
-      nome: nome,
-      idade: idade,
-      pergunta: resposta.pergunta,
-      resposta: resposta.respostaDada,
-      correta: resposta.respostaCorreta
-    });
+    db.collection("respostasQuiz")
+      .add({
+        nome: nome,
+        idade: idade,
+        pergunta: resposta.pergunta,
+        resposta: resposta.respostaDada,
+        correta: resposta.respostaCorreta,
+        timestamp: new Date()
+      })
+      .then(() => {
+        console.log("Resposta enviada com sucesso!");
+      })
+      .catch((error) => {
+        console.error("Erro ao enviar resposta:", error);
+      });
   });
-}
-
-// Função que envia individualmente ao Firestore
-function enviarResposta(dados) {
-  db.collection("respostasQuiz")
-    .add({
-      nome: dados.nome,
-      idade: dados.idade,
-      pergunta: dados.pergunta,
-      resposta: dados.resposta,
-      correta: dados.correta,
-      timestamp: new Date()
-    })
-    .then(() => {
-      console.log("Resposta enviada com sucesso!");
-    })
-    .catch((error) => {
-      console.error("Erro ao enviar resposta:", error);
-    });
 }
