@@ -32,66 +32,9 @@
     // Inicializa Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
-
-    // Perguntas do quiz
-    const perguntas = [
-      "Qual é a capital da França?",
-      "Quanto é 2 + 2?",
-      "Qual é a cor do céu?"
-    ];
-    const respostas = [
-      ["Paris", "Londres", "Berlim"],
-      ["3", "4", "5"],
-      ["Azul", "Verde", "Vermelho"]
-    ];
-    let indiceAtual = 0;
-    let nome = "";
-    let idade = "";
-
-    function iniciarQuiz() {
-      nome = document.getElementById("nome").value;
-      idade = document.getElementById("idade").value;
-      if (!nome || !idade) {
-        alert("Por favor, preencha seu nome e idade.");
-        return;
-      }
-      mostrarPergunta();
-    }
-
-    function mostrarPergunta() {
-      const container = document.getElementById("quiz-container");
-      container.innerHTML = `<h2>${perguntas[indiceAtual]}</h2>`;
-      respostas[indiceAtual].forEach((opcao, index) => {
-        container.innerHTML += `<button onclick="responder('${opcao}')">${opcao}</button><br>`;
-      });
-    }
-
-    function responder(respostaSelecionada) {
-      const perguntaAtual = perguntas[indiceAtual];
-      enviarParaFirebase(nome, idade, perguntaAtual, respostaSelecionada);
-      indiceAtual++;
-      if (indiceAtual < perguntas.length) {
-        mostrarPergunta();
-      } else {
-        document.getElementById("quiz-container").innerHTML = `<h2>Obrigado por participar!</h2>`;
-      }
-    }
-
-    function enviarParaFirebase(nome, idade, pergunta, resposta) {
-      db.collection("respostas").add({
-        nome: nome,
-        idade: idade,
-        pergunta: pergunta,
-        resposta: resposta,
-        timestamp: new Date()
-      })
-      .then(() => {
-        console.log("Resposta salva com sucesso.");
-      })
-      .catch((error) => {
-        console.error("Erro ao salvar resposta:", error);
-      });
-    }
   </script>
+
+  <!-- Seu script -->
+  <script src="script.js"></script>
 </body>
 </html>
