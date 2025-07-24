@@ -20,8 +20,8 @@ const perguntas = [
   {
     imagem: "images/astronauta.png",
     pergunta: "Por que Guarulhos está pedindo ajuda?",
-    opcoes: ["img (Because it rains)", "img (Because it is sad)", "img (Because of pollution)", "img (Because t-rex)"],
-    correta: "img (Because of pollution)"
+    opcoes: ["Because it rains", "Because it is sad", "Because of pollution", "Because t-rex"],
+    correta: "Because of pollution"
   },
   {
     imagem: "images/astronauta.png",
@@ -82,7 +82,7 @@ function mostrarPergunta() {
 
   if (perguntaAtual >= perguntas.length) {
     container.innerHTML = "<h2>Obrigado por participar!</h2><p>Suas respostas foram enviadas com sucesso.</p>";
-    enviarParaGoogleSheets();
+    enviarParaGoogleSheets(); // envia tudo junto ao final
     return;
   }
 
@@ -94,7 +94,7 @@ function mostrarPergunta() {
       <div class="barra-progresso" style="width: ${progresso}%;"></div>
     </div>
     <h2>${pergunta.pergunta}</h2>
-    <img src="${pergunta.imagem || 'images/astronauta.png'}" class="imagem-intermediaria" alt="Imagem ilustrativa">
+    <img src="${pergunta.imagem}" class="imagem-intermediaria" alt="Imagem ilustrativa">
     <div class="respostas">
       ${pergunta.opcoes.map(opcao => {
         if (typeof opcao === "string") {
@@ -127,23 +127,25 @@ function responder(opcao) {
   mostrarPergunta();
 }
 
-function enviarResposta(nome, idade, pergunta, resposta, correta) {
-  const urlWebApp = "https://script.google.com/macros/s/AKfycbycHDdMNfxLhmYIQvlK0C8XPYT6IjDJmgWjdoziITVl_SXCteTWqn3rP22PUhRxTSRc/exec";
+function enviarParaGoogleSheets() {
+  const urlWebApp = "https://script.google.com/macros/s/AKfycbyjkT8WxXojwuK9eCpmaIJbxtm3gApyyP_Zyrj8o3ouo_hgvn2fWJvEFStxvA_jX8u8/exec";
 
-  fetch(urlWebApp, {
-    method: "POST",
-    body: JSON.stringify({
-      nome: nome,
-      idade: idade,
-      pergunta: pergunta,
-      resposta: resposta,
-      correta: correta
-    }),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(res => res.text())
-  .then(data => console.log("Resposta enviada:", data))
-  .catch(err => console.error("Erro ao enviar resposta:", err));
+  respostas.forEach(r => {
+    fetch(urlWebApp, {
+      method: "POST",
+      body: JSON.stringify({
+        nome: nome,
+        idade: idade,
+        pergunta: r.pergunta,
+        resposta: r.respostaDada,
+        correta: r.respostaCorreta
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(res => res.text())
+    .then(data => console.log("Resposta enviada:", data))
+    .catch(err => console.error("Erro ao enviar resposta:", err));
+  });
 }
