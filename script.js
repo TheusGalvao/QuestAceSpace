@@ -1,6 +1,5 @@
 // script.js
 
-// Suas perguntas aqui
 const perguntas = [
   {
     imagem: "images/astronauta.png",
@@ -103,7 +102,7 @@ let perguntaAtual = 0;
 let nome = "";
 let idade = "";
 
-// Firebase config - certifique-se de NÃO repetir isso
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyA4rFposZJqX_wYWgOysqzA7d2pOocx6s0",
   authDomain: "respostas-quest-acespace.firebaseapp.com",
@@ -114,7 +113,7 @@ const firebaseConfig = {
   measurementId: "G-CCV98BK0RF"
 };
 
-// Inicializar Firebase apenas uma vez
+// Inicializa Firebase uma única vez
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -125,7 +124,7 @@ function iniciarQuiz() {
   nome = document.getElementById("nome").value.trim();
   idade = document.getElementById("idade").value.trim();
 
-  if (nome === "" || idade === "") {
+  if (!nome || !idade) {
     alert("Por favor, preencha o nome e a idade.");
     return;
   }
@@ -183,12 +182,11 @@ function responder(opcao) {
   mostrarPergunta();
 }
 
-// Envia todas as respostas ao final (em um único documento)
 function enviarParaFirebase() {
   const dados = {
     nome: nome,
     idade: idade,
-    respostas: respostas, // array completo com todas as respostas
+    respostas: respostas,
     timestamp: new Date()
   };
 
