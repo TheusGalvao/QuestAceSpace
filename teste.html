@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Teste de Envio</title>
+</head>
+<body>
+  <h2>Teste de envio para planilha</h2>
+
+  <input id="nome" placeholder="Seu nome" /><br><br>
+  <input id="idade" placeholder="Sua idade" /><br><br>
+
+  <button onclick="enviar()">Enviar teste</button>
+
+  <script>
+    function enviar() {
+      const nome = document.getElementById("nome").value;
+      const idade = document.getElementById("idade").value;
+
+      const pergunta = "Quem descobriu o Brasil?";
+      const resposta = "Pedro Álvares Cabral";
+      const correta = "Pedro Álvares Cabral";
+
+      fetch("https://script.google.com/macros/s/AKfycbycHDdMNfxLhmYIQvlK0C8XPYT6IjDJmgWjdoziITVl_SXCteTWqn3rP22PUhRxTSRc/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nome: nome,
+          idade: idade,
+          pergunta: pergunta,
+          resposta: resposta,
+          correta: correta
+        })
+      })
+      .then(res => res.text())
+      .then(data => {
+        alert("Resposta enviada com sucesso: " + data);
+      })
+      .catch(err => {
+        alert("Erro: " + err);
+      });
+    }
+  </script>
+</body>
+</html>
