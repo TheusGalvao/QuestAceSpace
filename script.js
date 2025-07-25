@@ -1,5 +1,3 @@
-// script.js
-
 const perguntas = [
   {
     imagem: "images/astronauta.png",
@@ -33,10 +31,10 @@ const perguntas = [
     imagem: "images/astronauta.png",
     pergunta: "Por que Guarulhos está pedindo ajuda?",
     opcoes: [
-      "Because it rains",
-      "Because it is sad",
-      "Because of pollution",
-      "Because t-rex"
+      { texto: "Because it rains", imagem: "images/rain.jpg" },
+      { texto: "Because it is sad", imagem: "images/sad.jpg" },
+      { texto: "Because of pollution", imagem: "images/pulluition.jpg" },
+      { texto: "Because t-rex", imagem: "images/trex.jpg" },
     ],
     correta: "Because of pollution"
   },
@@ -44,12 +42,12 @@ const perguntas = [
     imagem: "images/astronauta.png",
     pergunta: "O que é um “dirty river”?",
     opcoes: [
-      { texto: "img1", imagem: "images/dirty.jpg" },
-      { texto: "img2", imagem: "images/river.jpg" },
-      { texto: "img3", imagem: "images/tree.jpeg" },
-      { texto: "img4", imagem: "images/background.png" }
+      { texto: "1", imagem: "images/dirty.jpg" },
+      { texto: "2", imagem: "images/river.jpg" },
+      { texto: "3", imagem: "images/tree.jpeg" },
+      { texto: "4", imagem: "images/background.png" }
     ],
-    correta: "img1"
+    correta: "1"
   },
   {
     imagem: "images/astronauta.png",
@@ -167,19 +165,41 @@ function mostrarPergunta() {
   `;
 }
 
-function responder(opcao) {
+function responder(opcaoSelecionada) {
   const pergunta = perguntas[perguntaAtual];
-  const acertou = opcao === pergunta.correta;
+  const botoes = document.querySelectorAll('.resposta');
+  const respostaCerta = pergunta.correta;
+
+  // Desativa botões e aplica estilos
+  botoes.forEach(btn => {
+    btn.classList.add('disabled');
+
+    const textoBtn = btn.innerText.trim();
+    const temImagem = btn.querySelector('img');
+    const valor = temImagem ? btn.querySelector('div').innerText.trim() : textoBtn;
+
+    if (valor === respostaCerta) {
+      btn.classList.add('correta');
+    }
+
+    if (valor === opcaoSelecionada && valor !== respostaCerta) {
+      btn.classList.add('errada');
+    }
+  });
+
+  const acertou = opcaoSelecionada === respostaCerta;
 
   respostas.push({
     pergunta: pergunta.pergunta,
-    respostaDada: opcao,
-    respostaCorreta: pergunta.correta,
+    respostaDada: opcaoSelecionada,
+    respostaCorreta: respostaCerta,
     acertou: acertou
   });
 
-  perguntaAtual++;
-  mostrarPergunta();
+  setTimeout(() => {
+    perguntaAtual++;
+    mostrarPergunta();
+  }, 1000);
 }
 
 function enviarParaFirebase() {
