@@ -4,7 +4,7 @@ body {
   background-image: url('images/background.png');
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  min-height: 100vh;
   font-family: sans-serif;
   display: flex;
   justify-content: center;
@@ -15,45 +15,17 @@ body {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 30px;
   border-radius: 20px;
-  width: 80%;
+  width: 90%;
   max-width: 600px;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  align-content: center;
-}
-
-.imagem-intermediaria {
-    background-image: url('astronauta.png');
-    width: 100px;
-    height: auto;
-    margin: 20px auto;
-}
-
-.respostas {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-
-.resposta {
-  padding: 15px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.resposta:hover {
-  background-color: #388E3C;
 }
 
 input {
   padding: 10px;
   margin: 10px 0;
-  width: 80%;
+  width: 100%;
+  max-width: 300px;
   border-radius: 10px;
   border: 1px solid #aaa;
   font-size: 1rem;
@@ -70,29 +42,9 @@ button.enviar {
 }
 
 button.enviar:hover {
-  background-color: #06a039;
-}
-.resposta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  margin: 8px;
-  font-size: 18px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 150px;
-  height: 150px;
+  background-color: #059132;
 }
 
-.opcao-img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  margin-bottom: 8px;
-}
 .barra-progresso-container {
   width: 100%;
   background-color: #ddd;
@@ -104,44 +56,93 @@ button.enviar:hover {
 
 .barra-progresso {
   height: 100%;
-  background-color: #00b409;
+  background-color: #4caf50;
   width: 0%;
   transition: width 0.3s ease;
 }
 
-/* CSS vídeo */
-
-video {
-    max-width: 800px;
-    width: 100%;
-    height: auto;
-    display: block; 
-    margin: 0 auto;
-    width: 1000px;
+.respostas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
 }
 
-.botao-estilizado {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #00b409;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: center;
-    font-weight: bold;
+.resposta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  height: 150px;
 }
 
-.botao-estilizado:hover {
-    background-color: #00da0b;
+.resposta:hover {
+  background-color: #388E3C;
 }
-.containervideo {
-    margin: 0;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
+
+.opcao-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.imagem-intermediaria {
+  background-image: url('astronauta.png');
+  width: 100px;
+  height: auto;
+  margin: 20px auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.resposta.correta {
+  background-color: #09b20f !important;
+  border-color: #005f05;
+}
+
+.resposta.errada {
+  background-color: #ff1100 !important;
+  border-color: #aa0000;
+}
+
+.resposta.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+
+/* --------- MEDIA QUERIES PARA CELULAR --------- */
+@media (max-width: 480px) {
+  .container {
     padding: 20px;
-    border-radius: 20px;
+  }
+
+  .resposta {
+    height: 120px;
+    font-size: 0.9rem;
+    grid-template-columns: 1fr;
+  }
+
+  .opcao-img {
+    width: 60px;
+    height: 60px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  input, button.enviar {
+    font-size: 1rem;
+  }
 }
