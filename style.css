@@ -146,3 +146,40 @@ button.enviar:hover {
     font-size: 1rem;
   }
 }
+
+/* CSS vídeo */
+
+video {
+    max-width: 800px;
+    width: 100%;
+    height: auto;
+    display: block; 
+    margin: 0 auto;
+    width: 1000px;
+}
+
+.botao-estilizado {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #00b409;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    font-weight: bold;
+}
+
+.botao-estilizado:hover {
+    background-color: #00da0b;
+}
+.containervideo {
+    margin: 0;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 20px;
+}
